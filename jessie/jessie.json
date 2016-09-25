@@ -2,7 +2,7 @@
   "variables": {
     "os_name": "debian",
     "os_codename": "jessie",
-    "os_verion": "8.5.0",
+    "os_verion": "8.6.0",
     "os_arch": "amd64",
     "os_arch_short": "64",
     "os_type": "Debian_64",
@@ -22,7 +22,7 @@
       "headless": true,
       "disk_size": "{{user `system_disk_size`}}",
       "iso_url": "http://cdimage.debian.org/debian-cd/{{user `os_verion`}}/{{user `os_arch`}}/iso-cd/debian-{{user `os_verion`}}-{{user `os_arch`}}-netinst.iso",
-      "iso_checksum": "011386fc26bd926e6e5c771a95490488d0603bbef5da3a5df7afaf62be3e17928c6d1bd728fd3ed18720ede4aec6798c7f718f5cab78aba6b57c9c8204f32546",
+      "iso_checksum": "6c3b53d2a33e34644153683f4492a7773340812c540eb3c5fdeee61e0c8dbafb2f9d634db0d2518b44fbf16770ec15f80561b49c280e27984e887ac71bfb3c3a",
       "iso_checksum_type": "sha512",
       "iso_target_path": "../../builds/cache/debian-{{user `os_verion`}}-{{user `os_arch`}}-netinst.iso",
       "ssh_username": "{{user `system_user`}}",
