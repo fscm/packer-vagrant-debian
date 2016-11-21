@@ -33,7 +33,7 @@
       "shutdown_command":     "echo '{{user `system_pwd`}}' | sudo -S /sbin/shutdown -hP now",
       "guest_additions_mode": "disable",
       "hard_drive_interface": "sata",
-      "output_directory":     "../../builds/sandbox/{{ .Provider }}",
+      "output_directory":     "../../builds/sandbox/{{build_type}}",
       "boot_wait":            "10s",
       "boot_command": [
         "<esc><wait>",
