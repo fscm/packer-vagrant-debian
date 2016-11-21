@@ -16,7 +16,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.ssh.keep_alive = true
   config.ssh.username = "pollywog"
 
-  config.vm.box = "fscm/jessie64"
   config.vm.box_check_update = true
 
   config.vm.communicator = "ssh"
