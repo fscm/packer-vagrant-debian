@@ -1,7 +1,6 @@
 {
   "variables": {
     "headless":         "true",
-    "os_name":          "debian",
     "os_codename":      "jessie",
     "os_version":       "8.6.0",
     "os_arch":          "amd64",
