@@ -3,19 +3,20 @@
     "headless":         "true",
     "os_codename":      "jessie",
     "os_version":       "8.6.0",
-    "os_arch":          "amd64",
-    "os_short_arch":    "64",
-    "os_type":          "Debian_64",
     "system_disk_size": "8192",
+    "system_domain":    "marsh",
+    "system_hostname":  "jessie",
     "system_locale":    "en_US",
+    "system_pwd":       "jessie",
     "system_timezone":  "Europe/Lisbon",
     "system_user":      "pollywog",
-    "system_pwd":       "jessie",
-    "system_hostname":  "jessie",
-    "system_domain":    "marsh"
+    "os_arch":          "amd64",
+    "os_short_arch":    "64",
+    "os_type":          "Debian_64"
   },
   "builders": [
     {
+      "name":                 "virtualbox",
       "type":                 "virtualbox-iso",
       "guest_os_type":        "{{user `os_type`}}",
       "vm_name":              "{{user `os_codename`}}{{user `os_short_arch`}}-{{isotime \"20060102150405\"}}",
@@ -73,7 +74,7 @@
   ],
   "provisioners": [
     {
-      "only":           ["virtualbox-iso"],
+      "only":           ["virtualbox"],
       "type":           "shell",
       "inline_shebang": "/bin/bash -e",
       "inline": [
@@ -87,7 +88,15 @@
         "sudo DEBIAN_FRONTEND=noninteractive apt-get -y -q purge dictionaries* emacs* iamerican* ibritish* ienglish* ispell nfacct tcpd vim-tiny libx11-data xauth libxmuu1 libxcb1 libx11-6 libxext6",
         "sudo DEBIAN_FRONTEND=noninteractive apt-get -y -q --purge autoremove",
         "sudo DEBIAN_FRONTEND=noninteractive apt-get autoclean",
-        "sudo DEBIAN_FRONTEND=noninteractive apt-get clean",
+        "sudo DEBIAN_FRONTEND=noninteractive apt-get clean"
+      ]
+    },
+    {
+      "type":           "shell",
+      "inline_shebang": "/bin/bash -e",
+      "inline": [
+        "unset HISTFILE",
+        "history -cw",
         "echo === System Settings ===",
         "echo 'dash dash/sh boolean false' | sudo debconf-set-selections",
         "sudo dpkg-reconfigure -f noninteractive dash",
@@ -118,6 +127,8 @@
         "sudo rm -f /root/.bash_history",
         "sudo rm -f /home/{{user `system_user`}}/.bash_history",
         "sudo rm -f /home/{{user `system_user`}}/.vbox_version",
+        "sudo rm -f /home/{{user `system_user`}}/.prlctl_version",
+        "sudo rm -f /home/{{user `system_user`}}/*.iso",
         "sudo rm -f /var/log/wtmp",
         "sudo rm -f /var/log/btmp",
         "sudo rm -rf /var/log/installer",
