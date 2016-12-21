@@ -132,7 +132,7 @@
         "sudo rm -f /var/log/wtmp",
         "sudo rm -f /var/log/btmp",
         "sudo rm -rf /var/log/installer",
-        "sudo rm -rf /tmp/* /tmp/.*-unix",
+        "sudo rm -rf /tmp/* /var/tmp/* /tmp/.*-unix",
         "sudo find /usr/share/locale/* -maxdepth 0 -type d \\! -name 'pt*' \\! -name 'en*' -exec rm -rf {} \\;",
         "sudo find /usr/share/doc/* -maxdepth 0 \\! -name 'virtualbox*' -exec rm -rf {} \\;",
         "sudo find /var/cache -type f -delete",
