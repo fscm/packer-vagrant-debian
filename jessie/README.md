@@ -1,10 +1,10 @@
-# Debian Jessie Image
+# Debian Jessie Box
 
-Packer templates to build a Vagrant debian Jessie image.
+Packer templates to build a Vagrant Debian Jessie box.
 
 ## Synopsis
 
-This script will create a Vagrant image with a minimum installation of Debian
+This script will create a Vagrant box with a minimum installation of Debian
 Jessie.
 
 ## Getting Started
@@ -33,7 +33,7 @@ Nothing special to be done. Just download the template that you wish to use.
 
 ### Usage
 
-In order to create the image using this packer script you need to provide a
+In order to create the box using this packer script you need to provide a
 few options.
 
 ```
@@ -55,7 +55,7 @@ Usage:
 
 ## Services
 
-This image will have the following services running.
+This box will have the following services running.
 
 | Service           | Port   | Protocol |
 |-------------------|:------:|:--------:|
