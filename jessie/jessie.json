@@ -98,6 +98,7 @@
         "unset HISTFILE",
         "history -cw",
         "echo === System Settings ===",
+        "sudo sed -i -r -e '/^mesg n/s/^/tty -s \\&\\& /' /root/.profile",
         "echo 'dash dash/sh boolean false' | sudo debconf-set-selections",
         "sudo dpkg-reconfigure -f noninteractive dash",
         "sudo sed -i -e '/^#NAutoVTs/aNAutoVTs=2' /etc/systemd/logind.conf",
