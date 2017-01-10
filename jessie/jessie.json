@@ -82,7 +82,7 @@
         "history -cw",
         "echo === System Packages ===",
         "echo 'deb http://ftp.debian.org/debian jessie-backports main contrib non-free' | sudo tee /etc/apt/sources.list.d/backports.list > /dev/null",
-        "sudo apt-get update",
+        "sudo apt-get -qq update",
         "sudo DEBIAN_FRONTEND=noninteractive apt-get -y -q install --no-install-recommends linux-headers-amd64 vim wget dbus",
         "sudo DEBIAN_FRONTEND=noninteractive apt-get -y -q install --no-install-recommends -t jessie-backports virtualbox-guest-dkms virtualbox-guest-utils",
         "sudo DEBIAN_FRONTEND=noninteractive apt-get -y -q purge dictionaries* emacs* iamerican* ibritish* ienglish* ispell nfacct tcpd vim-tiny libx11-data xauth libxmuu1 libxcb1 libx11-6 libxext6",
