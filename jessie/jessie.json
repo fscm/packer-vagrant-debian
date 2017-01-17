@@ -2,7 +2,7 @@
   "variables": {
     "headless":         "true",
     "os_codename":      "jessie",
-    "os_version":       "8.6.0",
+    "os_version":       "8.7.1",
     "system_disk_size": "8192",
     "system_domain":    "marsh",
     "system_hostname":  "jessie",
