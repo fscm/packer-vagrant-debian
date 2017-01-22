@@ -26,7 +26,7 @@
       "iso_url":              "http://cdimage.debian.org/debian-cd/{{user `os_version`}}/{{user `os_arch`}}/iso-cd/debian-{{user `os_version`}}-{{user `os_arch`}}-netinst.iso",
       "iso_checksum_type":    "sha512",
       "iso_checksum_url":     "http://cdimage.debian.org/debian-cd/{{user `os_version`}}/{{user `os_arch`}}/iso-cd/SHA512SUMS",
-      "iso_target_path":      "../../builds/cache/debian-{{user `os_version`}}-{{user `os_arch`}}-netinst.iso",
+      "iso_target_path":      "../builds/cache/debian-{{user `os_version`}}-{{user `os_arch`}}-netinst.iso",
       "ssh_username":         "{{user `system_user`}}",
       "ssh_password":         "{{user `system_pwd`}}",
       "ssh_port":             22,
@@ -34,7 +34,7 @@
       "shutdown_command":     "echo '{{user `system_pwd`}}' | sudo -S /sbin/shutdown -hP now",
       "guest_additions_mode": "disable",
       "hard_drive_interface": "sata",
-      "output_directory":     "../../builds/sandbox/{{build_type}}",
+      "output_directory":     "../builds/sandbox/{{build_type}}",
       "boot_wait":            "10s",
       "boot_command": [
         "<esc><wait>",
@@ -161,7 +161,7 @@
         "compression_level":    9,
         "keep_input_artifact":  false,
         "vagrantfile_template": "Vagrantfile.tpl",
-        "output":               "../../builds/providers/{{ .Provider }}/{{user `os_codename`}}{{user `os_short_arch`}}.box"
+        "output":               "../builds/providers/{{ .Provider }}/{{user `os_codename`}}{{user `os_short_arch`}}.box"
       }
     ]
   ]
