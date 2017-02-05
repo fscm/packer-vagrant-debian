@@ -1,5 +1,6 @@
 # Packer
 builds/cache/*
+builds/isos/*
 builds/providers/*
 builds/sandbox/*
 !.gitkeep
