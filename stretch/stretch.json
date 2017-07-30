@@ -118,6 +118,7 @@
         "sudo sed -i -e '/^#NAutoVTs/aNAutoVTs=2' /etc/systemd/logind.conf",
         "sudo update-locale LC_CTYPE={{user `system_locale`}}.UTF-8",
         "echo 'export TZ=:/etc/localtime' | sudo tee /etc/profile.d/tz.sh > /dev/null",
+        "echo 'export SYSTEMD_PAGER=' | sudo tee /etc/profile.d/systemd.sh > /dev/null",
         "sudo update-alternatives --set editor /usr/bin/vim.basic",
         "echo === Extra System Settings ===",
         "sudo swaplabel -L SWAP /dev/sda1",
