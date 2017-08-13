@@ -88,12 +88,15 @@
       "only":           ["virtualbox"],
       "type":           "shell",
       "inline_shebang": "/bin/bash -e",
+      "environment_vars": [
+        "DEBIAN_FRONTEND=noninteractive"
+      ],
       "inline": [
         "unset HISTFILE",
         "history -cw",
         "echo === System Packages ===",
         "sudo apt-get -qq update",
-        "sudo DEBIAN_FRONTEND=noninteractive apt-get -y -qq install --no-install-recommends linux-headers-amd64 dkms make gcc bzip2 vim wget dbus ca-certificates",
+        "sudo apt-get -y -qq install --no-install-recommends linux-headers-amd64 dkms make gcc bzip2 vim wget dbus ca-certificates",
         "sudo mkdir -p /media/guest_additions_cd",
         "sudo mount -r VBoxGuestAdditions.iso /media/guest_additions_cd",
         "sudo /media/guest_additions_cd/VBoxLinuxAdditions.run --nox11",
