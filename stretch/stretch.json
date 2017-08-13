@@ -102,6 +102,8 @@
         "sudo /media/guest_additions_cd/VBoxLinuxAdditions.run --nox11",
         "sudo umount /media/guest_additions_cd",
         "sudo rm -rf /media/guest_additions_cd",
+        "sudo rm -rf /etc/kernel/prerm.d/*",
+        "sudo apt-get -y -qq purge linux-headers* *-dev",
         "sudo apt-get -y -qq purge dictionaries* emacs* iamerican* ibritish* ienglish* ispell nfacct tcpd vim-tiny libx11-data xauth libxmuu1 libxcb1 libx11-6 libxext6",
         "sudo apt-get -y -qq --purge autoremove",
         "sudo apt-get autoclean",
