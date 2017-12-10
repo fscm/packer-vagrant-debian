@@ -27,6 +27,15 @@ Vagrant installation instructions can be found [here](https://www.vagrantup.com/
 
 Virtualbox installation instructions can be found [here](https://www.virtualbox.org/wiki/Downloads).
 
+#### Parallels
+
+Parallels installation instructions can be found [here](https://www.parallels.com/eu/products/desktop/resources/).
+
+From Parallels Desktop version 11 onwards Pro or Business edition is required.
+
+[Parallels Virtualization SDK](http://www.parallels.com/download/pvsdk/) is
+also required.
+
 ### Installation
 
 Nothing special to be done. Just download the template that you wish to use.
