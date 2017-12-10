@@ -11,6 +11,7 @@
     "os_version":       "9.2.1",
     "os_short_arch":    "64",
     "os_type":          "Debian_64",
+    "os_type_alt":      "debian",
     "system_disk_size": "8192",
     "system_domain":    "marsh",
     "system_hostname":  "stretch",
@@ -21,6 +22,68 @@
     "system_user":      "pollywog"
   },
   "builders": [
+    {
+      "name":                   "parallels",
+      "type":                   "parallels-iso",
+      "boot_wait":              "10s",
+      "disk_size":              "{{user `system_disk_size`}}",
+      "guest_os_type":          "{{user `os_type_alt`}}",
+      "hard_drive_interface":   "sata",
+      "http_directory":         "http",
+      "iso_checksum":           "{{user `checksum_value`}}",
+      "iso_checksum_type":      "{{user `checksum_type`}}",
+      "iso_target_path":        "../builds/cache/debian-{{user `os_version`}}-{{user `os_arch`}}-netinst.iso",
+      "parallels_tools_mode":   "upload",
+      "parallels_tools_flavor": "lin",
+      "ssh_username":           "{{user `system_user`}}",
+      "ssh_password":           "{{user `system_pwd`}}",
+      "ssh_port":               22,
+      "ssh_wait_timeout":       "3600s",
+      "output_directory":       "../builds/sandbox/{{build_type}}",
+      "shutdown_command":       "echo '{{user `system_pwd`}}' | sudo -S /sbin/shutdown -hP now",
+      "vm_name":                "{{user `os_codename`}}{{user `os_short_arch`}}-{{isotime \"20060102150405\"}}",
+      "boot_command": [
+        "<esc><wait>",
+        "auto ",
+        "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
+        "netcfg/get_hostname={{user `system_hostname`}} ",
+        "netcfg/get_domain={{user `system_domain`}} ",
+        "netcfg/hostname={{user `system_hostname`}} ",
+        "netcfg/domain={{user `system_domain`}} ",
+        "time/zone={{user `system_timezone`}} ",
+        "passwd/root-password={{user `system_pwd`}} ",
+        "passwd/root-password-again={{user `system_pwd`}} ",
+        "passwd/username={{user `system_user`}} ",
+        "passwd/user-password={{user `system_pwd`}} ",
+        "passwd/user-password-again={{user `system_pwd`}}<enter>"
+      ],
+      "iso_urls": [
+        "../builds/isos/debian-{{user `os_version`}}-{{user `os_arch`}}-netinst.iso",
+        "http://cdimage.debian.org/debian-cd/{{user `os_version`}}/{{user `os_arch`}}/iso-cd/debian-{{user `os_version`}}-{{user `os_arch`}}-netinst.iso",
+        "http://cdimage.debian.org/cdimage/archive/{{user `os_version`}}/{{user `os_arch`}}/iso-cd/debian-{{user `os_version`}}-{{user `os_arch`}}-netinst.iso"
+      ],
+      "prlctl": [
+        ["set", "{{.Name}}", "--3d-accelerate", "off"],
+        ["set", "{{.Name}}", "--adaptive-hypervisor", "on"],
+        ["set", "{{.Name}}", "--auto-share-camera", "off"],
+        ["set", "{{.Name}}", "--auto-share-bluetooth", "off"],
+        ["set", "{{.Name}}", "--autostart", "off"],
+        ["set", "{{.Name}}", "--autostop", "stop"],
+        ["set", "{{.Name}}", "--cpus", "1"],
+        ["set", "{{.Name}}", "--device-bootorder", "hdd0 cdrom0"],
+        ["set", "{{.Name}}", "--device-del", "sound0"],
+        ["set", "{{.Name}}", "--device-set", "net0", "--adapter-type", "e1000"],
+        ["set", "{{.Name}}", "--efi-boot", "off"],
+        ["set", "{{.Name}}", "--faster-vm", "off"],
+        ["set", "{{.Name}}", "--high-resolution", "off"],
+        ["set", "{{.Name}}", "--memsize", "{{user `system_memory`}}"],
+        ["set", "{{.Name}}", "--nested-virt", "on"],
+        ["set", "{{.Name}}", "--on-window-close", "keep-running"],
+        ["set", "{{.Name}}", "--sync-host-printers", "off"],
+        ["set", "{{.Name}}", "--tools-autoupdate", "off"],
+        ["set", "{{.Name}}", "--videosize", "12"]
+      ]
+    },
     {
       "name":                 "virtualbox",
       "type":                 "virtualbox-iso",
@@ -48,6 +111,8 @@
         "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
         "netcfg/get_hostname={{user `system_hostname`}} ",
         "netcfg/get_domain={{user `system_domain`}} ",
+        "netcfg/hostname={{user `system_hostname`}} ",
+        "netcfg/domain={{user `system_domain`}} ",
         "time/zone={{user `system_timezone`}} ",
         "passwd/root-password={{user `system_pwd`}} ",
         "passwd/root-password-again={{user `system_pwd`}} ",
@@ -84,6 +149,32 @@
     }
   ],
   "provisioners": [
+    {
+      "only":           ["parallels"],
+      "type":           "shell",
+      "inline_shebang": "/bin/bash -e",
+      "environment_vars": [
+        "DEBIAN_FRONTEND=noninteractive"
+      ],
+      "inline": [
+        "unset HISTFILE",
+        "history -cw",
+        "echo === System Packages ===",
+        "sudo apt-get -qq update",
+        "sudo apt-get -y -qq install --no-install-recommends linux-headers-amd64 dkms make gcc bzip2 vim wget dbus ca-certificates",
+        "sudo mkdir -p /media/parallels_tools_cd",
+        "sudo mount -r prl-tools-lin.iso /media/parallels_tools_cd",
+        "sudo /media/parallels_tools_cd/install --install-unattended-with-deps --progress",
+        "sudo umount /media/parallels_tools_cd",
+        "sudo rm -rf /media/parallels_tools_cd",
+        "sudo rm -rf /etc/kernel/prerm.d/*",
+        "sudo apt-get -y -qq purge linux-headers* *-dev",
+        "sudo apt-get -y -qq purge dictionaries* emacs* iamerican* ibritish* ienglish* ispell nfacct tcpd vim-tiny libx11-data xauth libxmuu1 libxcb1 libx11-6 libxext6",
+        "sudo apt-get -y -qq --purge autoremove",
+        "sudo apt-get autoclean",
+        "sudo apt-get clean"
+      ]
+    },
     {
       "only":           ["virtualbox"],
       "type":           "shell",

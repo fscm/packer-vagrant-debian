@@ -27,6 +27,15 @@ Vagrant installation instructions can be found [here](https://www.vagrantup.com/
 
 Virtualbox installation instructions can be found [here](https://www.virtualbox.org/wiki/Downloads).
 
+#### Parallels
+
+Parallels installation instructions can be found [here](https://www.parallels.com/eu/products/desktop/resources/).
+
+From Parallels Desktop version 11 onwards Pro or Business edition is required.
+
+[Parallels Virtualization SDK](http://www.parallels.com/download/pvsdk/) is
+also required.
+
 ### Installation
 
 Nothing special to be done. Just download the template that you wish to use.
@@ -54,6 +63,28 @@ Usage:
 - `system_pwd` - Password for the root and system users (default value: "stretch").
 - `system_timezone` - Time zone for the system (default value: "UTC").
 - `system_user` - Username of the system user (default value: "pollywog").
+
+#### Builds available
+
+By default the script will build virtual machines for all of the configured
+available builders.
+
+To choose only one or some builds use the `-only` option.
+
+```
+Usage:
+  packer build -only=[build_name] [-var 'option=value'] stretch.json
+```
+
+More than one builder can be specified by separating the names with commas
+(e.g.: `-only=virtualbox,parallels`).
+
+Here is a list of the configured builds on this script:
+
+| Build Name | Build Technology  |
+|------------|-------------------|
+| parallels  | Parallels Desktop |
+| virtualbox | VirtualBox        |
 
 ## Services
 
