@@ -243,6 +243,7 @@
         "sudo rm -f /home/{{user `system_user`}}/.vbox_version",
         "sudo rm -f /home/{{user `system_user`}}/.prlctl_version",
         "sudo rm -f /home/{{user `system_user`}}/*.iso",
+        "sudo rm -f /var/lib/dhcp/*",
         "sudo rm -f /var/log/wtmp",
         "sudo rm -f /var/log/btmp",
         "sudo rm -rf /var/log/installer",
