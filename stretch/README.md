@@ -36,6 +36,12 @@ From Parallels Desktop version 11 onwards Pro or Business edition is required.
 [Parallels Virtualization SDK](http://www.parallels.com/download/pvsdk/) is
 also required.
 
+#### VMware
+
+VMware installation instructions will depend on the VMware product that you
+have. Go to your product page at [VMware](https://www.vmware.com) and check
+for the appropriate documentation.
+
 ### Installation
 
 Nothing special to be done. Just download the template that you wish to use.
@@ -85,6 +91,7 @@ Here is a list of the configured builds on this script:
 |------------|-------------------|
 | parallels  | Parallels Desktop |
 | virtualbox | VirtualBox        |
+| vmware     | VMware            |
 
 ## Services
 
