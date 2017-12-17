@@ -146,6 +146,63 @@
         ["modifyvm", "{{.Name}}", "--usb", "off"],
         ["modifyvm", "{{.Name}}", "--vrde", "off"]
       ]
+    },
+    {
+      "name":                           "vmware",
+      "type":                           "vmware-iso",
+      "boot_wait":                      "10s",
+      "disk_size":                      "{{user `system_disk_size`}}",
+      "disk_type_id":                   "0",
+      "guest_os_type":                  "{{user `os_type_alt`}}9-{{user `os_short_arch`}}",
+      "headless":                       "{{user `headless`}}",
+      "http_directory":                 "http",
+      "iso_checksum":                   "{{user `checksum_value`}}",
+      "iso_checksum_type":              "{{user `checksum_type`}}",
+      "iso_target_path":                "../builds/cache/debian-{{user `os_version`}}-{{user `os_arch`}}-netinst.iso",
+      "output_directory":               "../builds/sandbox/{{build_type}}",
+      "shutdown_command":               "echo '{{user `system_pwd`}}' | sudo -S /sbin/shutdown -hP now",
+      "ssh_username":                   "{{user `system_user`}}",
+      "ssh_password":                   "{{user `system_pwd`}}",
+      "ssh_port":                       22,
+      "ssh_wait_timeout":               "3600s",
+      "vm_name":                        "{{user `os_codename`}}{{user `os_short_arch`}}-{{isotime \"20060102150405\"}}",
+      "vmdk_name":                      "{{user `os_codename`}}{{user `os_short_arch`}}-{{isotime \"20060102150405\"}}",
+      "vmx_remove_ethernet_interfaces": "true",
+      "boot_command": [
+        "<esc><wait>",
+        "auto ",
+        "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
+        "netcfg/get_hostname={{user `system_hostname`}} ",
+        "netcfg/get_domain={{user `system_domain`}} ",
+        "netcfg/hostname={{user `system_hostname`}} ",
+        "netcfg/domain={{user `system_domain`}} ",
+        "time/zone={{user `system_timezone`}} ",
+        "passwd/root-password={{user `system_pwd`}} ",
+        "passwd/root-password-again={{user `system_pwd`}} ",
+        "passwd/username={{user `system_user`}} ",
+        "passwd/user-password={{user `system_pwd`}} ",
+        "passwd/user-password-again={{user `system_pwd`}}<enter>"
+      ],
+      "iso_urls": [
+        "../builds/isos/debian-{{user `os_version`}}-{{user `os_arch`}}-netinst.iso",
+        "http://cdimage.debian.org/debian-cd/{{user `os_version`}}/{{user `os_arch`}}/iso-cd/debian-{{user `os_version`}}-{{user `os_arch`}}-netinst.iso",
+        "http://cdimage.debian.org/cdimage/archive/{{user `os_version`}}/{{user `os_arch`}}/iso-cd/debian-{{user `os_version`}}-{{user `os_arch`}}-netinst.iso"
+      ],
+      "vmx_data": {
+        "cpuid.coresPerSocket":     "1",
+        "ehci.present":             "FALSE",
+        "ethernet0.connectionType": "nat",
+        "ethernet0.virtualDev":     "e1000",
+        "floppy0.present":          "FALSE",
+        "hpet0.present":            "TRUE",
+        "memsize":                  "{{user `system_memory`}}",
+        "numvcpus":                 "1",
+        "serial0.present":          "FALSE",
+        "sound.present":            "FALSE",
+        "usb.present":              "FALSE",
+        "vhv.enable":               "TRUE",
+        "virtualHW.version":        "10"
+      }
     }
   ],
   "provisioners": [
@@ -195,6 +252,25 @@
         "sudo rm -rf /media/guest_additions_cd",
         "sudo rm -rf /etc/kernel/prerm.d/*",
         "sudo apt-get -y -qq purge linux-headers* *-dev",
+        "sudo apt-get -y -qq purge dictionaries* emacs* iamerican* ibritish* ienglish* ispell nfacct tcpd vim-tiny libx11-data xauth libxmuu1 libxcb1 libx11-6 libxext6",
+        "sudo apt-get -y -qq --purge autoremove",
+        "sudo apt-get autoclean",
+        "sudo apt-get clean"
+      ]
+    },
+    {
+      "only":           ["vmware"],
+      "type":           "shell",
+      "inline_shebang": "/bin/bash -e",
+      "environment_vars": [
+        "DEBIAN_FRONTEND=noninteractive"
+      ],
+      "inline": [
+        "unset HISTFILE",
+        "history -cw",
+        "echo === System Packages ===",
+        "sudo apt-get -qq update",
+        "sudo apt-get -y -qq install --no-install-recommends open-vm-tools bzip2 vim wget dbus ca-certificates",
         "sudo apt-get -y -qq purge dictionaries* emacs* iamerican* ibritish* ienglish* ispell nfacct tcpd vim-tiny libx11-data xauth libxmuu1 libxcb1 libx11-6 libxext6",
         "sudo apt-get -y -qq --purge autoremove",
         "sudo apt-get autoclean",
