@@ -340,8 +340,8 @@
         "#sudo df -h /",
         "sudo du -sh / --exclude=/proc",
         "echo '--------------------------------------------------'",
-        "echo -n '  ' ; cat /etc/debian_version",
-        "echo '-------------------------------------------------'",
+        "echo -n '  Debian ' ; cat /etc/debian_version",
+        "echo '--------------------------------------------------'",
         "echo === All Done ==="
       ]
     },
