@@ -336,6 +336,12 @@
         "sudo dd if=/dev/zero of=/EMPTY bs=1M || echo 'dd exit code suppressed'",
         "sudo rm -f /EMPTY",
         "sudo sync",
+        "echo === System Info ===",
+        "#sudo df -h /",
+        "sudo du -sh / --exclude=/proc",
+        "echo '--------------------------------------------------'",
+        "echo -n '  ' ; cat /etc/debian_version",
+        "echo '-------------------------------------------------'",
         "echo === All Done ==="
       ]
     },
