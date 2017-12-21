@@ -8,7 +8,7 @@
     "headless":         "true",
     "os_arch":          "amd64",
     "os_codename":      "jessie",
-    "os_version":       "8.9.0",
+    "os_version":       "8.10.0",
     "os_short_arch":    "64",
     "os_type":          "Debian_64",
     "system_disk_size": "8192",
