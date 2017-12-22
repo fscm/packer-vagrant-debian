@@ -27,6 +27,21 @@ Vagrant installation instructions can be found [here](https://www.vagrantup.com/
 
 Virtualbox installation instructions can be found [here](https://www.virtualbox.org/wiki/Downloads).
 
+#### Parallels
+
+Parallels installation instructions can be found [here](https://www.parallels.com/eu/products/desktop/resources/).
+
+From Parallels Desktop version 11 onwards Pro or Business edition is required.
+
+[Parallels Virtualization SDK](http://www.parallels.com/download/pvsdk/) is
+also required.
+
+#### VMware
+
+VMware installation instructions will depend on the VMware product that you
+have. Go to your product page at [VMware](https://www.vmware.com) and check
+for the appropriate documentation.
+
 ### Installation
 
 Nothing special to be done. Just download the template that you wish to use.
@@ -46,7 +61,7 @@ Usage:
 - `checksum_value` - The checksum for the ISO file (default value: ""). Make sure that the type of the checksum is specified with the `checksum_type` variable.
 - `headless` - Show the console of the machine being built (default value: "true").
 - `os_codename` - Codename of the Operating System (default value: "jessie"). Will also be used as the Box name.
-- `os_version` - Version of the Operating System (default value: "8.6.0").
+- `os_version` - Version of the Operating System (default value: "8.10.0").
 - `system_disk_size` - Size of the disk in MB (default value: "8192").
 - `system_domain` - Domain name (default value: "marsh").
 - `system_hostname` - Host name (default value: "jessie").
@@ -54,6 +69,29 @@ Usage:
 - `system_pwd` - Password for the root and system users (default value: "jessie").
 - `system_timezone` - Time zone for the system (default value: "Europe/Lisbon").
 - `system_user` - Username of the system user (default value: "pollywog").
+
+#### Builds available
+
+By default the script will build virtual machines for all of the configured
+available builders.
+
+To choose only one or some builds use the `-only` option.
+
+```
+Usage:
+  packer build -only=[build_name] [-var 'option=value'] stretch.json
+```
+
+More than one builder can be specified by separating the names with commas
+(e.g.: `-only=virtualbox,parallels`).
+
+Here is a list of the configured builds on this script:
+
+| Build Name | Build Technology  |
+|------------|-------------------|
+| parallels  | Parallels Desktop |
+| virtualbox | VirtualBox        |
+| vmware     | VMware            |
 
 ## Services
 
