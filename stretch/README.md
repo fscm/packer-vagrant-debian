@@ -61,7 +61,7 @@ Usage:
 - `checksum_value` - The checksum for the ISO file (default value: ""). Make sure that the type of the checksum is specified with the `checksum_type` variable.
 - `headless` - Show the console of the machine being built (default value: "true").
 - `os_codename` - Codename of the Operating System (default value: "stretch"). Will also be used as the Box name.
-- `os_version` - Version of the Operating System (default value: "9.3.0").
+- `os_version` - Version of the Operating System (default value: "9.4.0").
 - `system_disk_size` - Size of the disk in MB (default value: "8192").
 - `system_domain` - Domain name (default value: "marsh").
 - `system_hostname` - Host name (default value: "stretch").
