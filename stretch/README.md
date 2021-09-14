@@ -1,3 +1,6 @@
+**[LEGACY] This branch is no longer maintained**
+> While this project is fully active, this branch is no longer maintained and therefore is no longer up to date. You are still welcome to explore, learn, and use the code provided here.
+
 # Debian Stretch Box
 
 Packer templates to build a Vagrant Debian Stretch box.
