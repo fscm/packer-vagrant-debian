@@ -71,7 +71,7 @@ To start that virtual machine run:
 vagrant up
 ```
 
-This box is available for multiple providers. See the table bellow to find out
+This box is available for multiple providers. See the table below to find out
 how to run a specific provider.
 
 |  provider  |  command                               |
