@@ -33,7 +33,7 @@ fi
 
 echo "[INFO ] Setting environment vars."
 
-export DEBIAN_FRONTEND="noninteractive",
+export DEBIAN_FRONTEND="noninteractive"
 export DEBCONF_NONINTERACTIVE_SEEN="true"
 
 
@@ -108,7 +108,7 @@ if lspci | grep --quiet --ignore-case virtualbox; then
     rm -rf /tmp/dependencies.*
 elif lspci | grep --quiet --ignore-case vmware; then
     echo "[INFO ] Installing tools for the VMWare hypervisor."
-    sudo apt-get -y -qq install --no-install-recommends open-vm-tools > /dev/null 2>&1
+    apt-get -y -qq install --no-install-recommends open-vm-tools > /dev/null 2>&1
     systemctl enable open-vm-tools
 else
     echo "[INFO ] UNKNOWN hypervisor, no tools will be installed."
@@ -122,7 +122,7 @@ echo "[INFO ] Configuring sshd."
 sed -i \
     -e '/UseDNS /s/.*\(UseDNS\) .*/\1 no/' \
     -e '/GSSAPIAuthentication /s/.*\(GSSAPIAuthentication\) .*/\1 no/' \
-    /etc/ssh/sshd_config; \
+    /etc/ssh/sshd_config
 
 wget -q https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub -O /tmp/authorized_keys
 for usr in /home/*; do
@@ -145,8 +145,7 @@ sed -i \
     -e '/^GRUB_TIMEOUT=/s/=.*/=1/' \
     -e 's/GRUB_CMDLINE_LINUX_DEFAULT="\(.*\)"/GRUB_CMDLINE_LINUX_DEFAULT="\1 cgroup_enable=memory"/' \
     /etc/default/grub
-update-grub2
-update-alternatives --set editor /usr/bin/vim.tiny
+grub2-mkconfig --output=/boot/grub2/grub.cfg
 
 
 # ----- System cleanup
